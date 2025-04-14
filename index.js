@@ -11,8 +11,8 @@ app.use(express.json());
   {id:4,name:'vashnavi'},
   {id:5,name:'komal'}
 ]; */
-const uri="mongodb+srv://varshashakyaknp2019:Varsha123@mycluster.q9ks6uz.mongodb.net/testdb?retryWrites=true&w=majority";
-mongoose.connect(uri)
+require('dotenv').config();
+mongoose.connect(process.env.MONGODB_URI)
 .then(()=>console.log("MongoDB Connected"))
 .catch(err=>console.error("Connection error:",err));
 
