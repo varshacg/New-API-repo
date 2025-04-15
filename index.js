@@ -61,6 +61,33 @@ app.post('/addusers',async(req,res)=>{
     res.status(400).send(err.message);
   }
 });
+app.put('/updateusers/:id', async(req, res) => {
+  try{
+    const updatedUser=await User.findOneAndUpdate(
+      {id:req.params.id},
+      {$set:req.body},
+      {new:true}
+    );
+    if(!updatedUser) return res.status(404).send("User not found");
+    res.send(updatedUser);
+  }catch(err){
+     res.status(500).send(err.message); 
+  }
+});
+ 
+app.delete('/deleteusers/:id', async(req, res) => {
+  try{
+     const deleteUser=await User.findOneAndDelete(
+      {id:req.params.id}
+     );
+     if(!deleteUser) return res.status(404).send("User not found");
+     res.send({message:"User deleted", user:deleteUser});
+  }catch(err){
+      res.status(500).send(err.message);
+  }
+}); 
+
+
 /* app.post('/addusers', (req, res) => {
   console.log('.......',req.body);
   res.send({
